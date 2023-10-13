@@ -36,12 +36,22 @@ RSpec.describe Calculator do
       end
     end
 
+    context 'multiplication' do
+      it 'resolve operation 1 * 1' do
+        expect(subject.evaluate('1 * 1')).to eq 1
+      end
+
+      it 'resolve operation 0 * 1' do
+        expect(subject.evaluate('0 * 1')).to eq 0
+      end
+    end
+
     context 'unsupported operation' do
       it 'raises error' do
         expect do
           subject.evaluate('1 . 1')
         end.to(
-          raise_error(ArgumentError, 'Operator not found, should contain at least one of +, -, /')
+          raise_error(ArgumentError, 'Operator not found, should contain at least one of +, -, /, *')
         )
       end
     end

@@ -3,7 +3,7 @@
 require 'calculator/expression'
 
 module Calculator
-  BASIC_OPERATORS = ['+', '-', '/'].freeze
+  BASIC_OPERATORS = ['+', '-', '/', '*'].freeze
 
   class << self
     def evaluate(expression)
@@ -19,6 +19,8 @@ module Calculator
         resolved_expression.left - resolved_expression.right
       elsif resolved_expression.operator == '/'
         resolved_expression.left / resolved_expression.right
+      elsif resolved_expression.operator == '*'
+        resolved_expression.left * resolved_expression.right
       end
     end
 
