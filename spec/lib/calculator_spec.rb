@@ -73,5 +73,25 @@ RSpec.describe Calculator do
         )
       end
     end
+
+    context 'unsupported letters' do
+      it 'raises error' do
+        expect do
+          subject.evaluate('1 / A')
+        end.to(
+          raise_error(ArgumentError, 'Expression does not allowed to contain letters')
+        )
+      end
+    end
+
+    context 'multiple unsupported behaviors' do
+      it 'raises error with the first error found' do
+        expect do
+          subject.evaluate('1 . A')
+        end.to(
+          raise_error(ArgumentError, 'Operator not found, should contain at least one of +, -, /, *')
+        )
+      end
+    end
   end
 end

@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 require 'calculator/parser'
-require 'calculator/operator'
+require 'calculator/validator'
 
 module Calculator
-  BASIC_OPERATORS = Operator.all.freeze
-
   class << self
     def evaluate(expression)
-      unless BASIC_OPERATORS.any? { |operator| expression.include?(operator) }
-        raise ArgumentError, "Operator not found, should contain at least one of #{BASIC_OPERATORS.join(', ')}"
-      end
+      validator = Validator.new(expression)
+
+      raise ArgumentError, validator.errors.first unless validator.valid?
 
       resolved_expression = Parser.new(expression).parse
 
