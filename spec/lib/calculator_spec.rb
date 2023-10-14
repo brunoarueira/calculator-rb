@@ -22,7 +22,7 @@ RSpec.describe Calculator do
       end
 
       it 'resolve operation 0 - 1' do
-        expect(subject.evaluate('0 - 1')).to eq -1
+        expect(subject.evaluate('0 - 1')).to eq(-1)
       end
     end
 

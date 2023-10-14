@@ -1,4 +1,6 @@
-require_relative './expression'
+# frozen_string_literal: true
+
+require_relative 'expression'
 
 module Calculator
   module Operator

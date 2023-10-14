@@ -1,8 +1,10 @@
-require_relative './operator'
+# frozen_string_literal: true
+
+require_relative 'operator'
 
 module Calculator
   class Parser
-    EXPRESSION_REGEX = /\((.*)\)(\s?[+\-*\/]\s?)\((.*)\)/
+    EXPRESSION_REGEX = %r{\((.*)\)(\s?[+\-*/]\s?)\((.*)\)}
     OPERATORS = Operator.all.freeze
 
     attr_reader :expression
@@ -29,7 +31,7 @@ module Calculator
     end
 
     def resolve_complex_expression(expression)
-      matched_data = expression.match(EXPRESSION_REGEX).to_a[1..-1]
+      matched_data = expression.match(EXPRESSION_REGEX).to_a[1..]
 
       if matched_data&.length == 3
         left = resolve_basic_expression(matched_data[0])
