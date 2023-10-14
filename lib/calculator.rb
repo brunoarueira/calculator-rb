@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require 'calculator/expression'
+require 'calculator/parser'
+require 'calculator/operator'
 
 module Calculator
-  BASIC_OPERATORS = ['+', '-', '/', '*'].freeze
+  BASIC_OPERATORS = Operator.all.freeze
 
   class << self
     def evaluate(expression)
@@ -11,27 +12,9 @@ module Calculator
         raise ArgumentError, "Operator not found, should contain at least one of #{BASIC_OPERATORS.join(', ')}"
       end
 
-      resolved_expression = resolve_expression(expression)
+      resolved_expression = Parser.new(expression).parse
 
-      if resolved_expression.operator == '+'
-        resolved_expression.left + resolved_expression.right
-      elsif resolved_expression.operator == '-'
-        resolved_expression.left - resolved_expression.right
-      elsif resolved_expression.operator == '/'
-        resolved_expression.left / resolved_expression.right
-      elsif resolved_expression.operator == '*'
-        resolved_expression.left * resolved_expression.right
-      end
-    end
-
-    private
-
-    def resolve_expression(expression)
-      chars = expression.chars.map(&:strip).select { |char| !char.nil? && char != '' }
-
-      operator = (BASIC_OPERATORS & chars).last
-
-      Expression.new(chars[0].to_f, chars[2].to_f, operator)
+      resolved_expression.call
     end
   end
 end

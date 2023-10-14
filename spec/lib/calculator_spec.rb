@@ -46,6 +46,24 @@ RSpec.describe Calculator do
       end
     end
 
+    context 'expressions' do
+      it 'resolve expression (1 * 1) + (2 / 3)' do
+        expect(subject.evaluate('(1 * 1) + (2 / 3)')).to eq 1.6666666666666665
+      end
+
+      it 'resolve operation (10 * 2) + (20 / 5)' do
+        expect(subject.evaluate('(10 * 2) + (20 / 5)')).to eq 24
+      end
+
+      it 'resolve operation (10 * 2) * (20 / 5)' do
+        expect(subject.evaluate('(10 * 2) * (20 / 5)')).to eq 80
+      end
+
+      it 'resolve operation (10 * 2) / (20 / 5)' do
+        expect(subject.evaluate('(10 * 2) / (20 / 5)')).to eq 5
+      end
+    end
+
     context 'unsupported operation' do
       it 'raises error' do
         expect do
